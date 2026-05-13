@@ -2,10 +2,12 @@
 #include "ast.h"
 
 extern FILE* yyin;
+extern int yylineno;
 int yylex(void);
 void yyrestart(FILE*);
 int yyparse(void);
 extern astnode* root;
+extern int error_count;
 
 int main(int argc, char** argv) {
     if(argc < 2) return 1;
@@ -13,9 +15,13 @@ int main(int argc, char** argv) {
     if(!f) {
         perror(argv[1]);
         return 1;
-    } 
+    }
     yyrestart(f);
+    yylineno = 1;
     yyparse();
-    print_tree(root);
+    fclose(f);
+    if (error_count == 0) {
+        print_tree(root);
+    }
     return 0;
 }
