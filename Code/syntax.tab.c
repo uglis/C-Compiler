@@ -551,12 +551,12 @@ static const yytype_int8 yytranslate[] =
 static const yytype_int16 yyrline[] =
 {
        0,    43,    43,    50,    53,    59,    65,    70,    76,    80,
-      84,    91,    97,   102,   109,   114,   121,   125,   132,   138,
-     148,   157,   166,   172,   177,   183,   190,   197,   203,   207,
-     212,   215,   220,   227,   235,   242,   246,   252,   256,   262,
-     266,   270,   277,   281,   288,   294,   300,   306,   312,   318,
-     324,   330,   336,   342,   347,   352,   361,   369,   376,   384,
-     390,   396,   402,   406,   412
+      84,    91,    97,   102,   110,   116,   123,   127,   134,   140,
+     150,   159,   168,   174,   179,   185,   192,   199,   205,   209,
+     214,   218,   224,   232,   242,   250,   254,   260,   264,   270,
+     274,   278,   285,   289,   296,   302,   308,   314,   320,   326,
+     332,   338,   344,   350,   355,   360,   369,   377,   384,   392,
+     398,   404,   410,   414,   420
 };
 #endif
 
@@ -1455,66 +1455,68 @@ yyreduce:
 #line 102 "./syntax.y"
                                               {
         (yyval.type_astnode) = new_astnode(NODE_STRUCT_SPECIFIER, (yyloc).first_line);
+        add_child((yyval.type_astnode), new_astnode(NODE_STRUCT, 0));
         add_child((yyval.type_astnode), (yyvsp[-3].type_astnode));
         add_child((yyval.type_astnode), new_astnode(NODE_LC, 0));
         add_child((yyval.type_astnode), (yyvsp[-1].type_astnode));
         add_child((yyval.type_astnode), new_astnode(NODE_RC, 0));
     }
-#line 1464 "./syntax.tab.c"
+#line 1465 "./syntax.tab.c"
     break;
 
   case 14: /* StructSpecifier: STRUCT Tag  */
-#line 109 "./syntax.y"
+#line 110 "./syntax.y"
                  {
         (yyval.type_astnode) = new_astnode(NODE_STRUCT_SPECIFIER, (yyloc).first_line);
+        add_child((yyval.type_astnode), new_astnode(NODE_STRUCT, 0));
         add_child((yyval.type_astnode), (yyvsp[0].type_astnode));
     }
-#line 1473 "./syntax.tab.c"
+#line 1475 "./syntax.tab.c"
     break;
 
   case 15: /* OptTag: ID  */
-#line 114 "./syntax.y"
+#line 116 "./syntax.y"
             {
         astnode* id_node = new_astnode(NODE_ID, 0);
         id_node->data.id_name = (yyvsp[0].type_id);
         (yyval.type_astnode) = new_astnode(NODE_OPT_TAG, (yyloc).first_line);
         add_child((yyval.type_astnode), id_node);
     }
-#line 1484 "./syntax.tab.c"
+#line 1486 "./syntax.tab.c"
     break;
 
   case 16: /* OptTag: %empty  */
-#line 121 "./syntax.y"
+#line 123 "./syntax.y"
         {
             (yyval.type_astnode) = NULL;
         }
-#line 1492 "./syntax.tab.c"
+#line 1494 "./syntax.tab.c"
     break;
 
   case 17: /* Tag: ID  */
-#line 125 "./syntax.y"
+#line 127 "./syntax.y"
          {
         astnode* id_node = new_astnode(NODE_ID, 0);
         id_node->data.id_name = (yyvsp[0].type_id);
         (yyval.type_astnode) = new_astnode(NODE_TAG, (yyloc).first_line);
         add_child((yyval.type_astnode), id_node);
     }
-#line 1503 "./syntax.tab.c"
+#line 1505 "./syntax.tab.c"
     break;
 
   case 18: /* VarDec: ID  */
-#line 132 "./syntax.y"
+#line 134 "./syntax.y"
             {
         astnode* id_node = new_astnode(NODE_ID, 0);
         id_node->data.id_name = (yyvsp[0].type_id);
         (yyval.type_astnode) = new_astnode(NODE_VAR_DEC, (yyloc).first_line);
         add_child((yyval.type_astnode), id_node);
     }
-#line 1514 "./syntax.tab.c"
+#line 1516 "./syntax.tab.c"
     break;
 
   case 19: /* VarDec: VarDec LB INT RB  */
-#line 138 "./syntax.y"
+#line 140 "./syntax.y"
                        {
         (yyval.type_astnode) = new_astnode(NODE_VAR_DEC, (yyloc).first_line);
         add_child((yyval.type_astnode), (yyvsp[-3].type_astnode));
@@ -1524,11 +1526,11 @@ yyreduce:
         add_child((yyval.type_astnode), int_node);
         add_child((yyval.type_astnode), new_astnode(NODE_RB, 0));
     }
-#line 1528 "./syntax.tab.c"
+#line 1530 "./syntax.tab.c"
     break;
 
   case 20: /* FunDec: ID LP VarList RP  */
-#line 148 "./syntax.y"
+#line 150 "./syntax.y"
                           {
         astnode* id_node = new_astnode(NODE_ID, 0);
         id_node->data.id_name = (yyvsp[-3].type_id);
@@ -1538,11 +1540,11 @@ yyreduce:
         add_child((yyval.type_astnode), (yyvsp[-1].type_astnode));
         add_child((yyval.type_astnode), new_astnode(NODE_RP, 0));
     }
-#line 1542 "./syntax.tab.c"
+#line 1544 "./syntax.tab.c"
     break;
 
   case 21: /* FunDec: ID LP RP  */
-#line 157 "./syntax.y"
+#line 159 "./syntax.y"
                {
         astnode* id_node = new_astnode(NODE_ID, 0);
         id_node->data.id_name = (yyvsp[-2].type_id);
@@ -1551,41 +1553,41 @@ yyreduce:
         add_child((yyval.type_astnode), new_astnode(NODE_LP, 0));
         add_child((yyval.type_astnode), new_astnode(NODE_RP, 0));
     }
-#line 1555 "./syntax.tab.c"
+#line 1557 "./syntax.tab.c"
     break;
 
   case 22: /* VarList: ParamDec COMMA VarList  */
-#line 166 "./syntax.y"
+#line 168 "./syntax.y"
                                  {
         (yyval.type_astnode) = new_astnode(NODE_VAR_LIST, (yyloc).first_line);
         add_child((yyval.type_astnode), (yyvsp[-2].type_astnode));
         add_child((yyval.type_astnode), new_astnode(NODE_COMMA, 0));
         add_child((yyval.type_astnode), (yyvsp[0].type_astnode));
     }
-#line 1566 "./syntax.tab.c"
+#line 1568 "./syntax.tab.c"
     break;
 
   case 23: /* VarList: ParamDec  */
-#line 172 "./syntax.y"
+#line 174 "./syntax.y"
                {
         (yyval.type_astnode) = new_astnode(NODE_VAR_LIST, (yyloc).first_line);
         add_child((yyval.type_astnode), (yyvsp[0].type_astnode));
     }
-#line 1575 "./syntax.tab.c"
+#line 1577 "./syntax.tab.c"
     break;
 
   case 24: /* ParamDec: Specifier VarDec  */
-#line 177 "./syntax.y"
+#line 179 "./syntax.y"
                             {
         (yyval.type_astnode) = new_astnode(NODE_PARAM_DEC, (yyloc).first_line);
         add_child((yyval.type_astnode), (yyvsp[-1].type_astnode));
         add_child((yyval.type_astnode), (yyvsp[0].type_astnode));
     }
-#line 1585 "./syntax.tab.c"
+#line 1587 "./syntax.tab.c"
     break;
 
   case 25: /* CompSt: LC DefList StmtList RC  */
-#line 183 "./syntax.y"
+#line 185 "./syntax.y"
                                 {
         (yyval.type_astnode) = new_astnode(NODE_COMP_ST, (yyloc).first_line);
         add_child((yyval.type_astnode), new_astnode(NODE_LC, 0));
@@ -1593,309 +1595,315 @@ yyreduce:
         add_child((yyval.type_astnode), (yyvsp[-1].type_astnode));
         add_child((yyval.type_astnode), new_astnode(NODE_RC, 0));
     }
-#line 1597 "./syntax.tab.c"
+#line 1599 "./syntax.tab.c"
     break;
 
   case 26: /* CompSt: LC error RC  */
-#line 190 "./syntax.y"
+#line 192 "./syntax.y"
                   {
         (yyval.type_astnode) = new_astnode(NODE_COMP_ST, (yyloc).first_line);
         add_child((yyval.type_astnode), new_astnode(NODE_LC, 0));
         add_child((yyval.type_astnode), NULL);
         add_child((yyval.type_astnode), new_astnode(NODE_RC, 0));
     }
-#line 1608 "./syntax.tab.c"
+#line 1610 "./syntax.tab.c"
     break;
 
   case 27: /* StmtList: Stmt StmtList  */
-#line 197 "./syntax.y"
+#line 199 "./syntax.y"
                          {
         (yyval.type_astnode) = new_astnode(NODE_STMT_LIST, (yyloc).first_line);
         add_child((yyval.type_astnode), (yyvsp[-1].type_astnode));
         add_child((yyval.type_astnode), (yyvsp[0].type_astnode));
     }
-#line 1618 "./syntax.tab.c"
+#line 1620 "./syntax.tab.c"
     break;
 
   case 28: /* StmtList: %empty  */
-#line 203 "./syntax.y"
+#line 205 "./syntax.y"
         {
             (yyval.type_astnode) = NULL;
         }
-#line 1626 "./syntax.tab.c"
+#line 1628 "./syntax.tab.c"
     break;
 
   case 29: /* Stmt: Exp SEMI  */
-#line 207 "./syntax.y"
+#line 209 "./syntax.y"
                 {
         (yyval.type_astnode) = new_astnode(NODE_STMT, (yyloc).first_line);
         add_child((yyval.type_astnode), (yyvsp[-1].type_astnode));
         add_child((yyval.type_astnode), new_astnode(NODE_SEMI, 0));
     }
-#line 1636 "./syntax.tab.c"
+#line 1638 "./syntax.tab.c"
     break;
 
   case 30: /* Stmt: CompSt  */
-#line 212 "./syntax.y"
+#line 214 "./syntax.y"
              {
-        (yyval.type_astnode) = (yyvsp[0].type_astnode);
+        (yyval.type_astnode) = new_astnode(NODE_STMT, (yyloc).first_line);
+        add_child((yyval.type_astnode), (yyvsp[0].type_astnode));
     }
-#line 1644 "./syntax.tab.c"
+#line 1647 "./syntax.tab.c"
     break;
 
   case 31: /* Stmt: RETURN Exp SEMI  */
-#line 215 "./syntax.y"
+#line 218 "./syntax.y"
                       {
-        (yyval.type_astnode) = new_astnode(NODE_RETURN, (yyloc).first_line);
+        (yyval.type_astnode) = new_astnode(NODE_STMT, (yyloc).first_line);
+        add_child((yyval.type_astnode), new_astnode(NODE_RETURN, 0));
         add_child((yyval.type_astnode), (yyvsp[-1].type_astnode));
         add_child((yyval.type_astnode), new_astnode(NODE_SEMI, 0));
     }
-#line 1654 "./syntax.tab.c"
+#line 1658 "./syntax.tab.c"
     break;
 
   case 32: /* Stmt: IF LP Exp RP Stmt  */
-#line 220 "./syntax.y"
+#line 224 "./syntax.y"
                                               {
-        (yyval.type_astnode) = new_astnode(NODE_IF, (yyloc).first_line);
+        (yyval.type_astnode) = new_astnode(NODE_STMT, (yyloc).first_line);
+        add_child((yyval.type_astnode), new_astnode(NODE_IF, 0));
         add_child((yyval.type_astnode), new_astnode(NODE_LP, 0));
         add_child((yyval.type_astnode), (yyvsp[-2].type_astnode));
         add_child((yyval.type_astnode), new_astnode(NODE_RP, 0));
         add_child((yyval.type_astnode), (yyvsp[0].type_astnode));
     }
-#line 1666 "./syntax.tab.c"
+#line 1671 "./syntax.tab.c"
     break;
 
   case 33: /* Stmt: IF LP Exp RP Stmt ELSE Stmt  */
-#line 227 "./syntax.y"
+#line 232 "./syntax.y"
                                   {
-        (yyval.type_astnode) = new_astnode(NODE_IF_ELSE, (yyloc).first_line);
+        (yyval.type_astnode) = new_astnode(NODE_STMT, (yyloc).first_line);
+        add_child((yyval.type_astnode), new_astnode(NODE_IF, 0));
         add_child((yyval.type_astnode), new_astnode(NODE_LP, 0));
         add_child((yyval.type_astnode), (yyvsp[-4].type_astnode));
         add_child((yyval.type_astnode), new_astnode(NODE_RP, 0));
         add_child((yyval.type_astnode), (yyvsp[-2].type_astnode));
+        add_child((yyval.type_astnode), new_astnode(NODE_ELSE, 0));
         add_child((yyval.type_astnode), (yyvsp[0].type_astnode));
     }
-#line 1679 "./syntax.tab.c"
+#line 1686 "./syntax.tab.c"
     break;
 
   case 34: /* Stmt: WHILE LP Exp RP Stmt  */
-#line 235 "./syntax.y"
+#line 242 "./syntax.y"
                            {
-        (yyval.type_astnode) = new_astnode(NODE_WHILE, (yyloc).first_line);
+        (yyval.type_astnode) = new_astnode(NODE_STMT, (yyloc).first_line);
+        add_child((yyval.type_astnode), new_astnode(NODE_WHILE, 0));
         add_child((yyval.type_astnode), new_astnode(NODE_LP, 0));
         add_child((yyval.type_astnode), (yyvsp[-2].type_astnode));
         add_child((yyval.type_astnode), new_astnode(NODE_RP, 0));
         add_child((yyval.type_astnode), (yyvsp[0].type_astnode));
     }
-#line 1691 "./syntax.tab.c"
-    break;
-
-  case 35: /* Stmt: error SEMI  */
-#line 242 "./syntax.y"
-                 {
-        (yyval.type_astnode) = NULL;
-    }
 #line 1699 "./syntax.tab.c"
     break;
 
+  case 35: /* Stmt: error SEMI  */
+#line 250 "./syntax.y"
+                 {
+        (yyval.type_astnode) = NULL;
+    }
+#line 1707 "./syntax.tab.c"
+    break;
+
   case 36: /* DefList: Def DefList  */
-#line 246 "./syntax.y"
+#line 254 "./syntax.y"
                       {
         (yyval.type_astnode) = new_astnode(NODE_DEF_LIST, (yyloc).first_line);
         add_child((yyval.type_astnode), (yyvsp[-1].type_astnode));
         add_child((yyval.type_astnode), (yyvsp[0].type_astnode));
     }
-#line 1709 "./syntax.tab.c"
-    break;
-
-  case 37: /* DefList: %empty  */
-#line 252 "./syntax.y"
-        {
-            (yyval.type_astnode) = NULL;
-        }
 #line 1717 "./syntax.tab.c"
     break;
 
+  case 37: /* DefList: %empty  */
+#line 260 "./syntax.y"
+        {
+            (yyval.type_astnode) = NULL;
+        }
+#line 1725 "./syntax.tab.c"
+    break;
+
   case 38: /* Def: Specifier DecList SEMI  */
-#line 256 "./syntax.y"
+#line 264 "./syntax.y"
                              {
         (yyval.type_astnode) = new_astnode(NODE_DEF, (yyloc).first_line);
         add_child((yyval.type_astnode), (yyvsp[-2].type_astnode));
         add_child((yyval.type_astnode), (yyvsp[-1].type_astnode));
         add_child((yyval.type_astnode), new_astnode(NODE_SEMI, 0));
     }
-#line 1728 "./syntax.tab.c"
-    break;
-
-  case 39: /* Def: error SEMI  */
-#line 262 "./syntax.y"
-                 {
-        (yyval.type_astnode) = NULL;
-    }
 #line 1736 "./syntax.tab.c"
     break;
 
+  case 39: /* Def: error SEMI  */
+#line 270 "./syntax.y"
+                 {
+        (yyval.type_astnode) = NULL;
+    }
+#line 1744 "./syntax.tab.c"
+    break;
+
   case 40: /* DecList: Dec  */
-#line 266 "./syntax.y"
+#line 274 "./syntax.y"
               {
         (yyval.type_astnode) = new_astnode(NODE_DEC_LIST, (yyloc).first_line);
         add_child((yyval.type_astnode), (yyvsp[0].type_astnode));
     }
-#line 1745 "./syntax.tab.c"
+#line 1753 "./syntax.tab.c"
     break;
 
   case 41: /* DecList: Dec COMMA DecList  */
-#line 270 "./syntax.y"
+#line 278 "./syntax.y"
                         {
         (yyval.type_astnode) = new_astnode(NODE_DEC_LIST, (yyloc).first_line);
         add_child((yyval.type_astnode), (yyvsp[-2].type_astnode));
         add_child((yyval.type_astnode), new_astnode(NODE_COMMA, 0));
         add_child((yyval.type_astnode), (yyvsp[0].type_astnode));
     }
-#line 1756 "./syntax.tab.c"
+#line 1764 "./syntax.tab.c"
     break;
 
   case 42: /* Dec: VarDec  */
-#line 277 "./syntax.y"
+#line 285 "./syntax.y"
              {
         (yyval.type_astnode) = new_astnode(NODE_DEC, (yyloc).first_line);
         add_child((yyval.type_astnode), (yyvsp[0].type_astnode));
     }
-#line 1765 "./syntax.tab.c"
+#line 1773 "./syntax.tab.c"
     break;
 
   case 43: /* Dec: VarDec ASSIGNOP Exp  */
-#line 281 "./syntax.y"
+#line 289 "./syntax.y"
                           {
         (yyval.type_astnode) = new_astnode(NODE_DEC, (yyloc).first_line);
         add_child((yyval.type_astnode), (yyvsp[-2].type_astnode));
         add_child((yyval.type_astnode), new_astnode(NODE_ASSIGNOP, 0));
         add_child((yyval.type_astnode), (yyvsp[0].type_astnode));
     }
-#line 1776 "./syntax.tab.c"
+#line 1784 "./syntax.tab.c"
     break;
 
   case 44: /* Exp: Exp ASSIGNOP Exp  */
-#line 288 "./syntax.y"
+#line 296 "./syntax.y"
                        {
         (yyval.type_astnode) = new_astnode(NODE_EXP, (yyloc).first_line);
         add_child((yyval.type_astnode), (yyvsp[-2].type_astnode));
         add_child((yyval.type_astnode), new_astnode(NODE_ASSIGNOP, 0));
         add_child((yyval.type_astnode), (yyvsp[0].type_astnode));
     }
-#line 1787 "./syntax.tab.c"
+#line 1795 "./syntax.tab.c"
     break;
 
   case 45: /* Exp: Exp AND Exp  */
-#line 294 "./syntax.y"
+#line 302 "./syntax.y"
                   {
         (yyval.type_astnode) = new_astnode(NODE_EXP, (yyloc).first_line);
         add_child((yyval.type_astnode), (yyvsp[-2].type_astnode));
         add_child((yyval.type_astnode), new_astnode(NODE_AND, 0));
         add_child((yyval.type_astnode), (yyvsp[0].type_astnode));
     }
-#line 1798 "./syntax.tab.c"
+#line 1806 "./syntax.tab.c"
     break;
 
   case 46: /* Exp: Exp OR Exp  */
-#line 300 "./syntax.y"
+#line 308 "./syntax.y"
                  {
         (yyval.type_astnode) = new_astnode(NODE_EXP, (yyloc).first_line);
         add_child((yyval.type_astnode), (yyvsp[-2].type_astnode));
         add_child((yyval.type_astnode), new_astnode(NODE_OR, 0));
         add_child((yyval.type_astnode), (yyvsp[0].type_astnode));
     }
-#line 1809 "./syntax.tab.c"
+#line 1817 "./syntax.tab.c"
     break;
 
   case 47: /* Exp: Exp RELOP Exp  */
-#line 306 "./syntax.y"
+#line 314 "./syntax.y"
                     {
         (yyval.type_astnode) = new_astnode(NODE_EXP, (yyloc).first_line);
         add_child((yyval.type_astnode), (yyvsp[-2].type_astnode));
         add_child((yyval.type_astnode), new_astnode(NODE_RELOP, 0));
         add_child((yyval.type_astnode), (yyvsp[0].type_astnode));
     }
-#line 1820 "./syntax.tab.c"
+#line 1828 "./syntax.tab.c"
     break;
 
   case 48: /* Exp: Exp PLUS Exp  */
-#line 312 "./syntax.y"
+#line 320 "./syntax.y"
                    {
         (yyval.type_astnode) = new_astnode(NODE_EXP, (yyloc).first_line);
         add_child((yyval.type_astnode), (yyvsp[-2].type_astnode));
         add_child((yyval.type_astnode), new_astnode(NODE_PLUS, 0));
         add_child((yyval.type_astnode), (yyvsp[0].type_astnode));
     }
-#line 1831 "./syntax.tab.c"
+#line 1839 "./syntax.tab.c"
     break;
 
   case 49: /* Exp: Exp MINUS Exp  */
-#line 318 "./syntax.y"
+#line 326 "./syntax.y"
                     {
         (yyval.type_astnode) = new_astnode(NODE_EXP, (yyloc).first_line);
         add_child((yyval.type_astnode), (yyvsp[-2].type_astnode));
         add_child((yyval.type_astnode), new_astnode(NODE_MINUS, 0));
         add_child((yyval.type_astnode), (yyvsp[0].type_astnode));
     }
-#line 1842 "./syntax.tab.c"
+#line 1850 "./syntax.tab.c"
     break;
 
   case 50: /* Exp: Exp STAR Exp  */
-#line 324 "./syntax.y"
+#line 332 "./syntax.y"
                    {
         (yyval.type_astnode) = new_astnode(NODE_EXP, (yyloc).first_line);
         add_child((yyval.type_astnode), (yyvsp[-2].type_astnode));
         add_child((yyval.type_astnode), new_astnode(NODE_STAR, 0));
         add_child((yyval.type_astnode), (yyvsp[0].type_astnode));
     }
-#line 1853 "./syntax.tab.c"
+#line 1861 "./syntax.tab.c"
     break;
 
   case 51: /* Exp: Exp DIV Exp  */
-#line 330 "./syntax.y"
+#line 338 "./syntax.y"
                   {
         (yyval.type_astnode) = new_astnode(NODE_EXP, (yyloc).first_line);
         add_child((yyval.type_astnode), (yyvsp[-2].type_astnode));
         add_child((yyval.type_astnode), new_astnode(NODE_DIV, 0));
         add_child((yyval.type_astnode), (yyvsp[0].type_astnode));
     }
-#line 1864 "./syntax.tab.c"
+#line 1872 "./syntax.tab.c"
     break;
 
   case 52: /* Exp: LP Exp RP  */
-#line 336 "./syntax.y"
+#line 344 "./syntax.y"
                 {
         (yyval.type_astnode) = new_astnode(NODE_EXP, (yyloc).first_line);
         add_child((yyval.type_astnode), new_astnode(NODE_LP, 0));
         add_child((yyval.type_astnode), (yyvsp[-1].type_astnode));
         add_child((yyval.type_astnode), new_astnode(NODE_RP, 0));
     }
-#line 1875 "./syntax.tab.c"
+#line 1883 "./syntax.tab.c"
     break;
 
   case 53: /* Exp: MINUS Exp  */
-#line 342 "./syntax.y"
+#line 350 "./syntax.y"
                 {
         (yyval.type_astnode) = new_astnode(NODE_EXP, (yyloc).first_line);
         add_child((yyval.type_astnode), new_astnode(NODE_NEG, 0));
         add_child((yyval.type_astnode), (yyvsp[0].type_astnode));
     }
-#line 1885 "./syntax.tab.c"
+#line 1893 "./syntax.tab.c"
     break;
 
   case 54: /* Exp: NOT Exp  */
-#line 347 "./syntax.y"
+#line 355 "./syntax.y"
               {
         (yyval.type_astnode) = new_astnode(NODE_EXP, (yyloc).first_line);
         add_child((yyval.type_astnode), new_astnode(NODE_NOT, 0));
         add_child((yyval.type_astnode), (yyvsp[0].type_astnode));
     }
-#line 1895 "./syntax.tab.c"
+#line 1903 "./syntax.tab.c"
     break;
 
   case 55: /* Exp: ID LP Args RP  */
-#line 352 "./syntax.y"
+#line 360 "./syntax.y"
                     {
         astnode* id_node = new_astnode(NODE_ID, 0);
         id_node->data.id_name = (yyvsp[-3].type_id);
@@ -1905,11 +1913,11 @@ yyreduce:
         add_child((yyval.type_astnode), (yyvsp[-1].type_astnode));
         add_child((yyval.type_astnode), new_astnode(NODE_RP, 0));
     }
-#line 1909 "./syntax.tab.c"
+#line 1917 "./syntax.tab.c"
     break;
 
   case 56: /* Exp: ID LP RP  */
-#line 361 "./syntax.y"
+#line 369 "./syntax.y"
                {
         astnode* id_node = new_astnode(NODE_ID, 0);
         id_node->data.id_name = (yyvsp[-2].type_id);
@@ -1918,11 +1926,11 @@ yyreduce:
         add_child((yyval.type_astnode), new_astnode(NODE_LP, 0));
         add_child((yyval.type_astnode), new_astnode(NODE_RP, 0));
     }
-#line 1922 "./syntax.tab.c"
+#line 1930 "./syntax.tab.c"
     break;
 
   case 57: /* Exp: Exp LB Exp RB  */
-#line 369 "./syntax.y"
+#line 377 "./syntax.y"
                     {
         (yyval.type_astnode) = new_astnode(NODE_EXP, (yyloc).first_line);
         add_child((yyval.type_astnode), (yyvsp[-3].type_astnode));
@@ -1930,11 +1938,11 @@ yyreduce:
         add_child((yyval.type_astnode), (yyvsp[-1].type_astnode));
         add_child((yyval.type_astnode), new_astnode(NODE_RB, 0));
     }
-#line 1934 "./syntax.tab.c"
+#line 1942 "./syntax.tab.c"
     break;
 
   case 58: /* Exp: Exp DOT ID  */
-#line 376 "./syntax.y"
+#line 384 "./syntax.y"
                  {
         astnode* id_node = new_astnode(NODE_ID, 0);
         id_node->data.id_name = (yyvsp[0].type_id);
@@ -1943,72 +1951,72 @@ yyreduce:
         add_child((yyval.type_astnode), new_astnode(NODE_DOT, 0));
         add_child((yyval.type_astnode), id_node);
     }
-#line 1947 "./syntax.tab.c"
+#line 1955 "./syntax.tab.c"
     break;
 
   case 59: /* Exp: ID  */
-#line 384 "./syntax.y"
+#line 392 "./syntax.y"
          {
         astnode* id_node = new_astnode(NODE_ID, 0);
         id_node->data.id_name = (yyvsp[0].type_id);
         (yyval.type_astnode) = new_astnode(NODE_EXP, (yyloc).first_line);
         add_child((yyval.type_astnode), id_node);
     }
-#line 1958 "./syntax.tab.c"
+#line 1966 "./syntax.tab.c"
     break;
 
   case 60: /* Exp: INT  */
-#line 390 "./syntax.y"
+#line 398 "./syntax.y"
           {
         astnode* int_node = new_astnode(NODE_INT, 0);
         int_node->data.int_val = (yyvsp[0].type_int);
         (yyval.type_astnode) = new_astnode(NODE_EXP, (yyloc).first_line);
         add_child((yyval.type_astnode), int_node);
     }
-#line 1969 "./syntax.tab.c"
+#line 1977 "./syntax.tab.c"
     break;
 
   case 61: /* Exp: FLOAT  */
-#line 396 "./syntax.y"
+#line 404 "./syntax.y"
             {
         astnode* float_node = new_astnode(NODE_FLOAT, 0);
         float_node->data.float_val = (yyvsp[0].type_float);
         (yyval.type_astnode) = new_astnode(NODE_EXP, (yyloc).first_line);
         add_child((yyval.type_astnode), float_node);
     }
-#line 1980 "./syntax.tab.c"
-    break;
-
-  case 62: /* Exp: LP error RP  */
-#line 402 "./syntax.y"
-                  {
-        (yyval.type_astnode) = NULL;
-    }
 #line 1988 "./syntax.tab.c"
     break;
 
+  case 62: /* Exp: LP error RP  */
+#line 410 "./syntax.y"
+                  {
+        (yyval.type_astnode) = NULL;
+    }
+#line 1996 "./syntax.tab.c"
+    break;
+
   case 63: /* Args: Exp COMMA Args  */
-#line 406 "./syntax.y"
+#line 414 "./syntax.y"
                       {
         (yyval.type_astnode) = new_astnode(NODE_ARGS, (yyloc).first_line);
         add_child((yyval.type_astnode), (yyvsp[-2].type_astnode));
         add_child((yyval.type_astnode), new_astnode(NODE_COMMA, 0));
         add_child((yyval.type_astnode), (yyvsp[0].type_astnode));
     }
-#line 1999 "./syntax.tab.c"
+#line 2007 "./syntax.tab.c"
     break;
 
   case 64: /* Args: Exp  */
-#line 412 "./syntax.y"
+#line 420 "./syntax.y"
           {
         (yyval.type_astnode) = new_astnode(NODE_ARGS, (yyloc).first_line);
         add_child((yyval.type_astnode), (yyvsp[0].type_astnode));
     }
-#line 2008 "./syntax.tab.c"
+#line 2016 "./syntax.tab.c"
     break;
 
 
-#line 2012 "./syntax.tab.c"
+#line 2020 "./syntax.tab.c"
 
       default: break;
     }
@@ -2206,7 +2214,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 417 "./syntax.y"
+#line 425 "./syntax.y"
 
 void yyerror(char* msg) {
     if (yylloc.first_line != last_error_line) {

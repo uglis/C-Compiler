@@ -35,11 +35,11 @@
     X("AND",           NODE_AND)            \
     X("OR",            NODE_OR)             \
     X("ASSIGNOP",      NODE_ASSIGNOP)       \
-    X("If",            NODE_IF)             \
-    X("While",         NODE_WHILE)          \
+    X("IF",            NODE_IF)             \
+    X("WHILE",         NODE_WHILE)          \
     X("IfElse",        NODE_IF_ELSE)        \
     X("ELSE",          NODE_ELSE)           \
-    X("Return",        NODE_RETURN)         \
+    X("RETURN",        NODE_RETURN)         \
     X("LP",            NODE_LP)             \
     X("RP",            NODE_RP)             \
     X("LB",            NODE_LB)             \
@@ -49,7 +49,8 @@
     X("Exp",           NODE_EXP)            \
     X("SEMI",          NODE_SEMI)           \
     X("COMMA",         NODE_COMMA)          \
-    X("TYPE",          NODE_TYPE)
+    X("TYPE",          NODE_TYPE)           \
+    X("STRUCT",        NODE_STRUCT)
 
 #define X(str, name) name,
 typedef enum {

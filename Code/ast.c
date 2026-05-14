@@ -44,7 +44,6 @@ static int is_syntax_unit(NodeKind kind) {
         case NODE_VAR_LIST: case NODE_PARAM_DEC: case NODE_COMP_ST:
         case NODE_STMT_LIST: case NODE_STMT: case NODE_DEF_LIST: case NODE_DEF:
         case NODE_DEC_LIST: case NODE_DEC: case NODE_ARGS: case NODE_EXP:
-        case NODE_IF: case NODE_WHILE: case NODE_IF_ELSE: case NODE_RETURN:
             return 1;
         default:
             return 0;

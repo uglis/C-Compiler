@@ -60,7 +60,9 @@ EXP_BAD [eE][+-]?
 {digit}+"."{digit}+           { yylval.type_float = atof(yytext); return FLOAT; }
 {digit}+{EXP}                 { yylval.type_float = atof(yytext); return FLOAT; }
 {digit}+{EXP_BAD}             { REPORT_ERROR_A("invalid floating point number '%s'", yytext); yylval.type_float = 0; return FLOAT; }
+{digit}+"."{digit}+("."{digit}*)+  { REPORT_ERROR_A("invalid floating point number '%s'", yytext); yylval.type_float = 0; return FLOAT; }
 
+{digit}+{letter}({letter}|{digit}|_)* { REPORT_ERROR_A("invalid identifier starting with digit '%s'", yytext); yylval.type_id = strdup(yytext); return ID; }
 {digit}+                { yylval.type_int = atoi(yytext); return INT; }
 
 "int"           { yylval.type_type = strdup("int"); return TYPE; }

@@ -101,6 +101,7 @@ Specifier : TYPE {
     ;
 StructSpecifier : STRUCT OptTag LC DefList RC {
         $$ = new_astnode(NODE_STRUCT_SPECIFIER, @$.first_line);
+        add_child($$, new_astnode(NODE_STRUCT, 0));
         add_child($$, $2);
         add_child($$, new_astnode(NODE_LC, 0));
         add_child($$, $4);
@@ -108,6 +109,7 @@ StructSpecifier : STRUCT OptTag LC DefList RC {
     }
     | STRUCT Tag {
         $$ = new_astnode(NODE_STRUCT_SPECIFIER, @$.first_line);
+        add_child($$, new_astnode(NODE_STRUCT, 0));
         add_child($$, $2);
     }
     ;
@@ -210,30 +212,36 @@ Stmt : Exp SEMI {
         add_child($$, new_astnode(NODE_SEMI, 0));
     }
     | CompSt {
-        $$ = $1;
+        $$ = new_astnode(NODE_STMT, @$.first_line);
+        add_child($$, $1);
     }
     | RETURN Exp SEMI {
-        $$ = new_astnode(NODE_RETURN, @$.first_line);
+        $$ = new_astnode(NODE_STMT, @$.first_line);
+        add_child($$, new_astnode(NODE_RETURN, 0));
         add_child($$, $2);
         add_child($$, new_astnode(NODE_SEMI, 0));
     }
     | IF LP Exp RP Stmt %prec LOWER_THAN_ELSE {
-        $$ = new_astnode(NODE_IF, @$.first_line);
+        $$ = new_astnode(NODE_STMT, @$.first_line);
+        add_child($$, new_astnode(NODE_IF, 0));
         add_child($$, new_astnode(NODE_LP, 0));
         add_child($$, $3);
         add_child($$, new_astnode(NODE_RP, 0));
         add_child($$, $5);
     }
     | IF LP Exp RP Stmt ELSE Stmt {
-        $$ = new_astnode(NODE_IF_ELSE, @$.first_line);
+        $$ = new_astnode(NODE_STMT, @$.first_line);
+        add_child($$, new_astnode(NODE_IF, 0));
         add_child($$, new_astnode(NODE_LP, 0));
         add_child($$, $3);
         add_child($$, new_astnode(NODE_RP, 0));
         add_child($$, $5);
+        add_child($$, new_astnode(NODE_ELSE, 0));
         add_child($$, $7);
     }
     | WHILE LP Exp RP Stmt {
-        $$ = new_astnode(NODE_WHILE, @$.first_line);
+        $$ = new_astnode(NODE_STMT, @$.first_line);
+        add_child($$, new_astnode(NODE_WHILE, 0));
         add_child($$, new_astnode(NODE_LP, 0));
         add_child($$, $3);
         add_child($$, new_astnode(NODE_RP, 0));
