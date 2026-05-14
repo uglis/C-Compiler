@@ -1,0 +1,33 @@
+C-- 语义分析器
+=============
+
+## 功能
+
+在实验一词法/语法分析的基础上，手写实现 C-- 语言语义分析，包括：
+- 17 种语义错误检查（类型 1--17）
+- 选做要求 3.3：结构等价（Structural Equivalence）
+- 符号表（PJW 哈希 + 链地址法）
+- 类型系统（int / float / array / struct / function）
+
+## 编译
+
+    cd Code
+    make
+
+依赖：gcc, flex, bison, libfl, liby
+
+## 运行
+
+    cd Code
+    ./parser <输入文件.cmm>
+
+- 无错误的输入：无输出
+- 有语义错误的输入：输出错误信息（每行一个），格式为
+  Error type [n] at Line [行号]: [说明].
+
+## 新增文件（相比实验一）
+
+    Code/
+    ├── type.h / type.c      类型系统
+    ├── symbol.h / symbol.c  符号表
+    └── semantic.h / semantic.c  语义分析

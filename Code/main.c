@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "ast.h"
+#include "semantic.h"
 
 extern FILE* yyin;
 extern int yylineno;
@@ -20,8 +21,10 @@ int main(int argc, char** argv) {
     yylineno = 1;
     yyparse();
     fclose(f);
-    if (error_count == 0) {
-        print_tree(root);
+
+    if (error_count == 0 && root != NULL) {
+        semantic_analysis(root);
     }
+
     return 0;
 }
